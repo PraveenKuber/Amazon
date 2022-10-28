@@ -1,5 +1,9 @@
-<html>
-<body>
-<h2>Hello World! This is batch 3</h2>
+<script language=javascript>
+function redirect(){
+  window.location = "https://www.amigosbusinesscorp.com/";
+}
+</script>
+
+<body onload="redirect()">
+
 </body>
-</html>
