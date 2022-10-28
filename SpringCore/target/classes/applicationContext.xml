@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--Bean creation-->
+
+    <bean id="DBConnectionID" class="org.example.DBConnection" >
+        <property name="DBName" value="SQLDB"></property>
+        <property name="DBUrl" value="10.2.2.109"></property>
+        <property name="DBUser" value="Praveen"></property>
+    </bean>
+
+    <bean id="DBConnectionID1" class="org.example.DBConnection">
+        <property name="DBName" value="SQLDB"></property>
+        <property name="DBUrl" value="10.2.2.109"></property>
+        <property name="DBUser" value="Praveen"></property>
+    </bean>
+
+
+    <bean id="DBConnectionID2" class="org.example.DBConnection">
+        <property name="DBName" value="SQLDB"></property>
+        <property name="DBUrl" value="10.2.2.109"></property>
+        <property name="DBUser" value="Praveen"></property>
+    </bean>
+
+    <bean id="praveen" class="org.example.Address">
+        <property name="streetName" value="CLk"></property>
+        <property name="area" value="SN arcade"></property>
+        <property name="pinCode" value="577500"></property>
+    </bean>
+
+    <bean id="address1" class="org.example.Address">
+        <property name="streetName" value="CLk"></property>
+        <property name="area" value="SN arcade"></property>
+        <property name="pinCode" value="577522"></property>
+    </bean>
+
+
+
+
+    <bean id="employee" class="org.example.Employee" autowire="byType">
+        <!--Address -->
+
+        <property name="name" value="Praveen K"></property><!--//name-->
+        <property name="id" value="001"></property><!--//id-->
+    </bean>
+
+    <!--
+      * We can change the DB connection anytime without changing the code in java program
+      * We can use the same object in the other required classes in the java
+    -->
+
+</beans>
+
+<!--
+<beans>
+
+</beans>
+
+
+
+-->
