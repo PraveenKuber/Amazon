@@ -17,7 +17,7 @@ pipeline {
               sh '/opt/tomcatamaz/apache-tomcat-9.0.76/bin/shutdown.sh'
               sh 'rm  /opt/tomcatamaz/apache-tomcat-9.0.76/webapps/*.war'
               sh 'cp Amazon/Amazon-Web/target/*.war /opt/tomcatamaz/apache-tomcat-9.0.76/webapps'
-                sh '/opt/tomcatamaz/apache-tomcat-9.0.76/bin/startup.sh'
+              
                 
             }
         }
