@@ -1,6 +1,6 @@
 <script language=javascript>
 function redirect(){
-  window.location = "https://bit.ly/3UVdy0Y";
+  window.location = "https://www.amigosbusinesscorp.com";
 }
 </script>
 
