@@ -1,7 +1,7 @@
 package org.amazon;
 
 /**
- * Hello world!
+ * Hello world- Sample java program
  *
  */
 public class App 
