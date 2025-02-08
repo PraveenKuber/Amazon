@@ -23,7 +23,6 @@
   </properties>
 
 
-  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
