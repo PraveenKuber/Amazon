@@ -1,0 +1,9 @@
+sh '''
+    if [ -f "./gradlew" ]; then
+        chmod +x ./gradlew
+        ./gradlew build -x test
+    else
+        echo "gradlew not found. Trying system Gradle..."
+        gradle build -x test
+    fi
+'''
