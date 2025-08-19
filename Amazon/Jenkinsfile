@@ -1,1 +1,58 @@
-// Added feature 1
+pipeline {
+    agent any
+
+    environment {
+        SONARQUBE = 'SonarQubeServer'         // Jenkins Sonar config name
+        MAVEN_HOME = tool 'Maven 3.8.5'        // Jenkins Maven tool
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/YOUR-ORG/YOUR-REPO.git', branch: 'main'
+            }
+        }
+
+        stage('Build WAR') {
+            steps {
+                // Build all modules, skip tests if desired
+                sh "${MAVEN_HOME}/bin/mvn clean install -DskipTests"
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv("${SONARQUBE}") {
+                    sh "${MAVEN_HOME}/bin/mvn sonar:sonar"
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
+        stage('Deploy to Tomcat via Ansible') {
+            steps {
+                // Copy WAR to Ansible folder and run playbook
+                sh '''
+                    cp Amazon-Web/target/Amazon.war ansible/
+                    ansible-playbook -i ansible/hosts.ini ansible/deploy-tomcat.yml
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Deployment successful."
+        }
+        failure {
+            echo "Pipeline failed. Check logs."
+        }
+    }
+}
