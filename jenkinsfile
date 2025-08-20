@@ -1,0 +1,40 @@
+pipeline {
+   agent any 
+
+   stages{
+
+      stage(‘Clone_project’){
+ 
+       steps{
+               git branch:’main’ , url:’https://github.com/poorvika0021/Amazon_cat’
+        }
+
+      }
+
+      stage(‘compile’){
+ 
+       steps{
+               sh ‘mvn compile’
+        }
+
+      }
+
+      stage(‘test’){
+ 
+       steps{
+               sh ‘mvn test’
+        }
+
+      }
+
+      stage(‘build’){
+ 
+       steps{
+               sh ‘mvn clean install’
+        }
+
+      }
+
+   }
+
+}
