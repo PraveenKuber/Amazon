@@ -22,23 +22,27 @@ pipeline {
         }
 
         stage('Compile') {
-            steps {
-                sh 'mvn clean compile'
-            }
+    steps {
+        dir('Amazon') {
+            sh 'mvn clean compile'
         }
+    }
+}
 
         stage('Test') {
+        dir('Amazon') { 
             steps {
                 sh 'mvn test'
             }
         }
-
+        }
         stage('Package') {
+            dir('Amazon') { 
             steps {
                 sh 'mvn package -DskipTests'
             }
         }
-
+        }
         stage('Archive') {
             steps {
                 archiveArtifacts artifacts: "${WAR}",
