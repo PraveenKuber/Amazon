@@ -1,0 +1,72 @@
+pipeline {
+    agent any
+
+    parameters {
+        booleanParam(name: 'BUILD_APP', defaultValue: true, description: 'Execute Build stage')
+        booleanParam(name: 'TEST_APP', defaultValue: true, description: 'Execute Test stage')
+        booleanParam(name: 'DEPLOY_APP', defaultValue: false, description: 'Execute Deploy stage')
+    }
+
+    stages {
+
+        stage('CHECKOUT') {
+            steps {
+                echo 'Checking source code'
+                sh 'pwd'
+                sh 'ls -la'
+            }
+        }
+
+        stage('BUILD') {
+            when {
+                expression { params.BUILD_APP }
+            }
+            steps {
+                dir('SKY/SKY-Core') {
+                    sh 'mvn clean package'
+                }
+            }
+        }
+
+        stage('TEST') {
+            when {
+                expression { params.TEST_APP }
+            }
+            steps {
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    dir('SKY/SKY-Core') {
+                        sh 'mvn test'
+                    }
+                }
+            }
+        }
+
+        stage('DEPLOY') {
+            when {
+                expression { params.DEPLOY_APP }
+            }
+            steps {
+                echo 'Deployment stage executed'
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully'
+        }
+
+        failure {
+            echo 'Pipeline failed'
+        }
+
+        unstable {
+            echo 'Pipeline completed with errors'
+        }
+
+        always {
+            echo 'Pipeline execution finished'
+        }
+    }
+}
