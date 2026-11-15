@@ -21,15 +21,15 @@
     <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
-  xml
-<project>
+  
+
     <repositories>
         <repository>
             <id>my-custom-repo</id>
             <url>https://example.com/maven-repo</url>
         </repository>
     </repositories>
-</project>
+
 
 
   <dependencies>
