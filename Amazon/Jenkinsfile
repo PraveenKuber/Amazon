@@ -1,1 +1,35 @@
 // Added feature 1
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Build') {
+            steps {
+                sh 'echo "Welcome to Jenkins Pipeline"'
+                sh 'pwd'
+                sh 'whoami'
+            }
+        }
+
+        stage('System Information') {
+            steps {
+                sh 'date'
+                sh 'hostname'
+                sh 'java -version'
+            }
+        }
+
+        stage('Check Files') {
+            steps {
+                sh 'ls -l'
+            }
+        }
+
+        stage('Success') {
+            steps {
+                sh 'echo "Pipeline executed successfully"'
+            }
+        }
+    }
+}
