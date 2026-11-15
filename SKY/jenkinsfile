@@ -12,7 +12,11 @@ sh 'echo "./SKY/SKY-Core/pom.xml"'
 }
 stage('BUILD'){
 steps {
- sh'mvn clean package'
+dir('SKY/SKY-Core') {
+            sh 'pwd'
+            sh 'ls -la'
+           sh'mvn clean package'
+}
 }
 }
 stage('TEST'){
