@@ -1,41 +1,48 @@
-pipeline{
-agent any
+pipeline {
+    agent any
 
-stages{
-stage('FINF POM.XML'){
-steps{
-sh 'cd /var/lib/jenkins/jobs/jenkinsfile-sky/workspace'
-sh 'ls -la'
-sh 'find . -name pom.xml'
-sh 'echo "./SKY/SKY-Core/pom.xml"'
-}
-}
-stage('BUILD'){
-steps {
-dir('SKY/SKY-Core') {
-            sh 'pwd'
-            sh 'ls -la'
-           sh'mvn clean package'
-}
-}
-}
-stage('TEST'){
-steps {
-sh 'mvn clean'
-}
-}
-stage('BUILD & INSTALL STAGE'){
-steps{
-sh 'mvn clean install'
-}
-}
-stage('DEPLOY') {
-steps {
-echo 'pipeline completed successfully'
-}
-}
+    stages {
 
+        stage('FIND POM.XML') {
+            steps {
+                sh 'pwd'
+                sh 'ls -la'
+                sh 'find . -name pom.xml'
+            }
+        }
 
-}
+        stage('BUILD') {
+            steps {
+                dir('SKY/SKY-Core') {
+                    sh 'pwd'
+                    sh 'ls -la'
+                    sh 'mvn clean package'
+                }
+            }
+        }
+
+        stage('TEST') {
+            steps {
+                dir('SKY/SKY-Core') {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('BUILD & INSTALL') {
+            steps {
+                dir('SKY/SKY-Core') {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage('DEPLOY') {
+            steps {
+                echo 'Pipeline completed successfully'
+            }
+        }
+
+    }
 }
 
