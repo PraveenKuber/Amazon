@@ -8,6 +8,14 @@ stages{
                     url: ' https://github.com/monishamonimp3-7373/Amazon.git '
             }
         }
+stage('FINF POM.XML'){
+steps{
+sh 'cd /var/lib/jenkins/jobs/jenkinsfile-sky/workspace'
+sh 'ls la'
+sh 'find . -name pom.xml'
+sh 'echo "./SKY/SKY-Core/pom.xml"'
+}
+}
 stage('BUILD'){
 steps {
  sh'mvn clean package'
