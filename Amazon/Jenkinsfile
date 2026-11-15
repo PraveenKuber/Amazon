@@ -2,7 +2,7 @@ pipeline {
     agent any  
 
     stages {
-        stage('Checkout') {
+        stage('Check-out') {
             steps {
                 git(
                     branch: 'master', 
