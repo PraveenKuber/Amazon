@@ -5,7 +5,7 @@ stages{
 stage('FINF POM.XML'){
 steps{
 sh 'cd /var/lib/jenkins/jobs/jenkinsfile-sky/workspace'
-sh 'ls la'
+sh 'ls a'
 sh 'find . -name pom.xml'
 sh 'echo "./SKY/SKY-Core/pom.xml"'
 }
