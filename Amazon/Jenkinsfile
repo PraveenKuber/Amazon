@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-        stage('Compile') {
+     stage('Compile') {
     steps {
         dir('Amazon') {
             sh 'mvn clean compile'
@@ -29,20 +29,21 @@ pipeline {
     }
 }
 
-        stage('Test') {
-        dir('Amazon') { 
-            steps {
-                sh 'mvn test'
-            }
+stage('Test') {
+    steps {
+        dir('Amazon') {
+            sh 'mvn test'
         }
+    }
+}
+
+stage('Package') {
+    steps {
+        dir('Amazon') {
+            sh 'mvn package -DskipTests'
         }
-        stage('Package') {
-            dir('Amazon') { 
-            steps {
-                sh 'mvn package -DskipTests'
-            }
-        }
-        }
+    }
+}
         stage('Archive') {
             steps {
                 archiveArtifacts artifacts: "${WAR}",
