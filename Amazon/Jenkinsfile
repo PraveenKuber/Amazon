@@ -14,16 +14,17 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git branch: "${GIT_BRANCH}",
-                    url: "${GIT_URL}"
-            }
-        }
+       stage('Checkout') {
+    steps {
+        checkout scm
+    }
+}
 
-     stage('Compile') {
+stage('Compile') {
     steps {
         dir('Amazon') {
+            sh 'pwd'
+            sh 'ls -l'
             sh 'mvn clean compile'
         }
     }
