@@ -2,6 +2,12 @@ pipeline{
 agent any
 
 stages{
+        stage('GIT CHECKOUT') {
+            steps {
+                git branch: 'main',
+                    url: ' https://github.com/monishamonimp3-7373/Amazon.git '
+            }
+        }
 stage('BUILD'){
 steps {
  sh'mvn clean package'
