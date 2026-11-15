@@ -13,7 +13,7 @@ sh 'mvn clean'
 }
 }
 stage('BUILD & INSTALL STAGE'){
-step{
+steps{
 sh 'mvn clean install'
 }
 }
