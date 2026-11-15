@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('FIND POM.XML') {
+            steps {
+                sh 'pwd'
+                sh 'ls -la'
+                sh 'find . -name pom.xml'
+            }
+        }
+
+        stage('BUILD') {
+            steps {
+                dir('SpringDemo') {
+                    sh 'pwd'
+                    sh 'ls -la'
+                    sh 'mvn clean package'
+                }
+            }
+        }
+
+        stage('TEST') {
+            steps {
+                dir('SpringDemo') {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('BUILD & INSTALL') {
+            steps {
+                dir('SpringDemo') {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage('DEPLOY') {
+            steps {
+                echo 'SpringDemo pipeline completed successfully'
+            }
+        }
+    }
+}
