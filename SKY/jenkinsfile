@@ -1,1 +1,31 @@
+pipeline{
+agent any
 
+stages{
+stage('BUILD'){
+steps {
+ sh'mvn clean package'
+}
+}
+stage('TEST'){
+steps {
+sh 'mvn clean'
+}
+}
+stage('BUILD & INSTALL STAGE'){
+step{
+sh 'mvn clean install'
+}
+}
+stage('DEPLOY') {
+steps {
+echo 'pipeline completed successfully'
+}
+}
+
+
+}
+}
+
+}
+}
