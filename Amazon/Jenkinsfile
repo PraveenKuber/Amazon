@@ -1,1 +1,38 @@
-// Added feature 1
+pipeline {
+    agent any  
+
+    stages { 
+        stage('Build') {
+            steps {
+                dir('Amazon') {
+                     sh 'mvn clean compile'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir('Amazon') {
+                     sh 'mvn test'
+                }     
+            }
+        }
+
+        stage('Package') {
+            steps {
+                dir('Amazon') {
+                     sh 'mvn package'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded! Artifacts are built.'
+        }
+        failure {
+            echo 'Pipeline failed! Check the logs for errors.'
+        }
+    }
+}
