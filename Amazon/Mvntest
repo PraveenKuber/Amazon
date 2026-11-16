@@ -11,8 +11,10 @@ pipeline {
 
         stage('Maven Test') {
             steps {
+dir('Amazon') {
                 sh 'mvn test'
             }
         }
     }
+}
 }
