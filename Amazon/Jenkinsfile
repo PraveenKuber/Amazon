@@ -1,17 +1,7 @@
 pipeline {
     agent any  
 
-    stages {
-        stage('Check-out') {
-            steps {
-                git(
-                    branch: 'Dev', 
-                    url: 'https://github.com/sunilmalagan/Amazon.git', 
-                    credentialsId: 'sunil' 
-                )
-            }
-        }
-
+    stages { 
         stage('Build') {
             steps {
                 dir('Amazon') {
