@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Test') {
+            steps {
+                echo 'Jenkins email notification test!'
+            }
+        }
+    }
+
+    post {
+        success {
+            emailext(
+                to: 'zameer.abc.reports@gmail.com',
+                subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "Your Jenkins build was successful."
+            )
+        }
+
+        failure {
+            emailext(
+                to: 'zameer.abc.reports@gmail.com',
+                subject: "FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "Your Jenkins build has failed."
+            )
+        }
+    }
+}
