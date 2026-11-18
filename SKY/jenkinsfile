@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('FIND POM.XML') {
+            steps {
+                sh 'pwd'
+                sh 'ls -la'
+                sh 'find . -name pom.xml'
+            }
+        }
+
+        stage('BUILD') {
+            steps {
+                dir('SKY/SKY-Core') {
+                    sh 'pwd'
+                    sh 'ls -la'
+                    sh 'mvn clean package'
+                }
+            }
+        }
+
+        stage('TEST') {
+            steps {
+                dir('SKY/SKY-Core') {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('BUILD & INSTALL') {
+            steps {
+                dir('SKY/SKY-Core') {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage('DEPLOY') {
+            steps {
+                echo 'Pipeline completed successfully'
+            }
+        }
+
+    }
+}
+

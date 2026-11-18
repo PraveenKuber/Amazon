@@ -1,0 +1,52 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Git Checkout') {
+            steps {
+                echo 'Git checkout completed'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Maven build completed'
+            }
+        }
+
+        stage('Deployment') {
+            steps {
+                echo 'Tomcat deployment completed'
+            }
+        }
+    }
+
+    post {
+
+        always {
+            echo 'Build execution completed'
+        }
+
+        success {
+            echo 'SUCCESS: Application deployed successfully'
+        }
+
+        failure {
+            echo 'FAILURE: Please check the console output'
+        }
+
+        unstable {
+            echo 'Build is unstable'
+        }
+
+        changed {
+            echo 'Build status has changed'
+        }
+
+        cleanup {
+            echo 'Post-build cleanup completed'
+        }
+    }
+}

@@ -1,0 +1,73 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('FIND POM.XML') {
+            steps {
+                sh 'pwd'
+                sh 'ls -la'
+                sh 'find . -name pom.xml'
+            }
+        }
+
+        stage('SPRINGDEMO BUILD') {
+            steps {
+                dir('SpringDemo') {
+                    sh 'pwd'
+                    sh 'ls -la'
+                    sh 'mvn clean package'
+                }
+            }
+        }
+
+        stage('SPRINGDEMO TEST') {
+            steps {
+                dir('SpringDemo') {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('SPRINGDEMO INSTALL') {
+            steps {
+                dir('SpringDemo') {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage('SPRINGNEW BUILD') {
+            steps {
+                dir('SpringNew') {
+                    sh 'pwd'
+                    sh 'ls -la'
+                    sh 'mvn clean package'
+                }
+            }
+        }
+
+        stage('SPRINGNEW TEST') {
+            steps {
+                dir('SpringNew') {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('SPRINGNEW INSTALL') {
+            steps {
+                dir('SpringNew') {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage('DEPLOY') {
+            steps {
+                echo 'SpringDemo and SpringNew pipeline completed successfully'
+            }
+        }
+
+    }
+}
