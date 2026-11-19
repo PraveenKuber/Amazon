@@ -1,10 +1,28 @@
+
 pipeline {
     agent any
 
+    tools {
+        jdk 'JDK21'
+        maven 'Maven3'
+    }
+
     stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+
         stage('Test') {
             steps {
-                echo 'Jenkins email notification test!'
+                sh 'mvn test'
             }
         }
     }
@@ -14,7 +32,7 @@ pipeline {
             emailext(
                 to: 'zameer.abc.reports@gmail.com',
                 subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: "Your Jenkins build was successful."
+                body: "Your Jenkins CI build and tests were successful."
             )
         }
 
@@ -22,7 +40,7 @@ pipeline {
             emailext(
                 to: 'zameer.abc.reports@gmail.com',
                 subject: "FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: "Your Jenkins build has failed."
+                body: "Your Jenkins CI build or tests have failed."
             )
         }
     }
