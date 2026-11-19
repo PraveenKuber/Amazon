@@ -1,1 +1,8 @@
-// Added feature 1
+pipeline{
+  agent any{
+    stages{
+      stage ('build')
+      'mvn clean install'
+    }
+  }
+}// Added feature 1
