@@ -1,1 +1,69 @@
-// Added feature 1
+pipeline {
+    agent any
+
+    tools {
+        jdk 'JDK21'
+        maven 'Maven'
+    }
+
+    environment {
+        GIT_BRANCH = 'main'
+        GIT_URL = 'https://github.com/SrinivasP2013/Amazon.git'
+        WAR = 'Amazon/Amazon-Web/target/Amazon.war'
+    }
+
+    stages {
+
+       stage('Checkout') {
+    steps {
+        checkout scm
+    }
+}
+
+stage('Compile') {
+    steps {
+        dir('Amazon') {
+            sh 'pwd'
+            sh 'ls -l'
+            sh 'mvn clean compile'
+        }
+    }
+}
+
+stage('Test') {
+    steps {
+        dir('Amazon') {
+            sh 'mvn test'
+        }
+    }
+}
+
+stage('Package') {
+    steps {
+        dir('Amazon') {
+            sh 'mvn package -DskipTests'
+        }
+    }
+}
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: "${WAR}",
+                                 fingerprint: true
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build Successful!'
+        }
+
+        failure {
+            echo 'Build Failed!'
+        }
+
+        always {
+            echo 'Pipeline execution completed'
+        }
+    }
+}
