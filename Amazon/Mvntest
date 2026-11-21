@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'master',
+                    url: 'https://github.com/SrinivasP2013/Amazon.git'
+            }
+        }
+
+        stage('Maven Test') {
+            steps {
+<<<<<<< HEAD
+dir('Amazon') {
+                sh 'mvn test'
+=======
+                dir('Amazon'){
+                    sh 'mvn test'
+>>>>>>> 672c443 (Saved local changes)
+            }
+        }
+    }
+}
+}
